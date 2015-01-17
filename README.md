@@ -7,7 +7,7 @@ Module comment for NukeViet 4.0
 --Hướng dẫn chỉnh sửa
 - Loại bỏ heesrt các phần comment hiện tại đang dùng của NukeViet 
 Tại khu vực muốn comment thêm đoạn sau
-##
+```
 // comment
 	define( 'NV_COMM_ID', $id_content );//ID bài viết hoặc 
 	define( 'NV_COMM_AREA', $module_info['funcs'][$op]['func_id'] );//để đáp ứng comment ở bất cứ đâu không cứ là bài viết
@@ -27,4 +27,4 @@ Tại khu vực muốn comment thêm đoạn sau
 	$url_comment = $url_info['path'];
 	
 	$content_comment = nv_comment_module( $module_name, $url_comment, $checkss, $area, NV_COMM_ID, $allowed, 1 );// hàm này trả về nội dung html vậy nên chỉ cần truyền 1 biến vào function của theme và gán Assign tempalte là được
-##
+```
