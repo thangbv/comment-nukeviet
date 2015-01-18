@@ -13,7 +13,7 @@ if ( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 $per_page_comment = NV_PER_PAGE_COMMENT;
 
 /**
- * nv_comment_module()
+ * nv_comment_data()
  *
  * @param mixed $id
  * @param mixed $module
@@ -85,7 +85,7 @@ function nv_comment_module( $module, $url_comment, $checkss, $area, $id, $allowe
 	{
 		if( $id > 0 and $module_config[$module]['activecomm'] == 1 )
 		{
-			$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=comment&module=' . $module . '&area=' . $area . '&id=' . $id . '&allowed=' . $allowed_comm . '&checkss=' . $checkss . '&perpage=' . NV_PER_PAGE_COMMENT;
+			$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=comment&module=' . $module . '&url_comment=' . $url_comment . '&area=' . $area . '&id=' . $id . '&allowed=' . $allowed_comm . '&checkss=' . $checkss . '&perpage=' . NV_PER_PAGE_COMMENT;
 
 			// Kiểm tra quyền xem bình luận
 			$form_login = 0;
