@@ -22,6 +22,7 @@ if( ! empty( $module ) and isset( $module_config[$module]['activecomm'] ) and is
 	$allowed_comm = $nv_Request->get_title( 'allowed', 'post' );
 	$checkss = $nv_Request->get_title( 'checkss', 'post' );
     $url_comment = $nv_Request->get_title( 'url_comment', 'post', '' );
+    
 	if( $id > 0 and $module_config[$module]['activecomm'] == 1 and $checkss == md5( $module . '-' . $area . '-' . $id . '-' . $allowed_comm . '-' . NV_CACHE_PREFIX ) )
 	{
 		// Kiểm tra quyền đăng bình luận
@@ -83,7 +84,6 @@ if( ! empty( $module ) and isset( $module_config[$module]['activecomm'] ) and is
 					}
 				}
 			}
-
 			if( $show_captcha and ! nv_capcha_txt( $code ) )
 			{
 				$contents = 'ERR_' . $lang_global['securitycodeincorrect'];

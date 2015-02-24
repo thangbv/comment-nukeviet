@@ -33,7 +33,7 @@ function nv_comment_data( $module, $area, $id, $allowed, $page, $sortcomm, $base
 	$_where .= ' AND a.id= ' . $id . ' AND a.status=1 AND a.pid=0';
 
 	$db->sqlreset()->select( 'COUNT(*)' )->from( NV_PREFIXLANG . '_comments a' )->join( 'LEFT JOIN ' . NV_USERS_GLOBALTABLE . ' b ON a.userid =b.userid' )->where( $_where );
-
+    
 	$num_items = $db->query( $db->sql() )->fetchColumn();
 	if( $num_items )
 	{
@@ -53,6 +53,7 @@ function nv_comment_data( $module, $area, $id, $allowed, $page, $sortcomm, $base
 			$db->order( 'a.cid DESC' );
 		}
 		$session_id = session_id() . '_' . $global_config['sitekey'];
+
 		$result = $db->query( $db->sql() );
 		$comment_list_id = array();
 		while( $row = $result->fetch() )
@@ -129,12 +130,11 @@ function nv_comment_module( $module, $url_comment, $checkss, $area, $id, $allowe
 	{
 		if( $id > 0 and $module_config[$module]['activecomm'] == 1 )
 		{
-			$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=comment&module=' . $module . '&area=' . $area . '&id=' . $id . '&allowed=' . $allowed_comm . '&checkss=' . $checkss . '&perpage=' . NV_PER_PAGE_COMMENT;
+			$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=comment&module=' . $module . '&area=' . $area . '&id=' . $id . '&allowed=' . $allowed_comm . '&checkss=' . $checkss . '&perpage=' . NV_PER_PAGE_COMMENT . '&url_comment=' . $url_comment;
 
 			// Kiểm tra quyền xem bình luận
 			$form_login = 0;
 			$view_comm = nv_user_in_groups( $module_config[$module]['view_comm'] );
-
 			// Kiểm tra quyền đăng bình luận
 			$allowed = $module_config[$module]['allowed_comm'];
 			if( $allowed == '-1' )
@@ -196,7 +196,7 @@ function nv_comment_module( $module, $url_comment, $checkss, $area, $id, $allowe
 			{
 				$comment = '';
 			}
-			$contents = nv_theme_comment_module( $module, $url_comment, $area, $id, $allowed_comm, $checkss, $comment, $sortcomm, $base_url, $form_login );
+			$contents = nv_theme_comment_module( $module, $url_comment, $area, $id, $allowed, $checkss, $comment, $sortcomm, $base_url, $form_login );
 			return $contents;
 		}
 		else
