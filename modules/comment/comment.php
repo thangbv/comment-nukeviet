@@ -117,7 +117,7 @@ function nv_comment_get_reply( $cid, $module, $session_id, $sortcomm )
 			$row['check_like'] = md5( $row['cid'] . '_' . $session_id );
 			$row['post_email'] = ( $emailcomm ) ? $row['post_email'] : '';
 			$data_reply_comment[$row['cid']] = $row;
-			$data_reply_comment[$row['cid']]['subcomment'] = nv_comment_get_reply( $row['cid'], $module, $session_id );
+			$data_reply_comment[$row['cid']]['subcomment'] = nv_comment_get_reply( $row['cid'], $module, $session_id, $sortcomm );
 		}
 	}
 	return $data_reply_comment;

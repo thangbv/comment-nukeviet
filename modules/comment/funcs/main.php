@@ -25,7 +25,7 @@ if( ! empty( $module ) and isset( $module_config[$module]['activecomm'] ) )
 	require_once NV_ROOTDIR . '/modules/comment/comment.php';
 	$content_comment = nv_comment_module( $module, $url_comment, $checkss, $area, $id, $allowed_comm, $page );
 	include NV_ROOTDIR . '/includes/header.php';
-	echo nv_site_theme( $content_comment, false );
+	echo $content_comment;
 	include NV_ROOTDIR . '/includes/footer.php';
 }
 
