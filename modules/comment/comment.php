@@ -71,7 +71,7 @@ function nv_comment_data( $module, $area, $id, $allowed, $page, $sortcomm, $base
 		{
 			foreach( $comment_list_id as $cid )
 			{
-				$comment_array[$cid]['subcomment'] = nv_comment_get_reply( $cid, $module, $session_id );
+				$comment_array[$cid]['subcomment'] = nv_comment_get_reply( $cid, $module, $session_id, $sortcomm );
 			}
 			$result->closeCursor();
 			unset( $row, $result );
@@ -84,7 +84,7 @@ function nv_comment_data( $module, $area, $id, $allowed, $page, $sortcomm, $base
 		return array( 'comment' => $comment_array, 'page' => $generate_page );
 	}
 }
-function nv_comment_get_reply( $cid, $module, $session_id )
+function nv_comment_get_reply( $cid, $module, $session_id, $sortcomm )
 {
 	global $db, $module_config;
 	$db->sqlreset()->select( 'COUNT(*)' )->from( NV_PREFIXLANG . '_comments a' )->join( 'LEFT JOIN ' . NV_USERS_GLOBALTABLE . ' b ON a.userid =b.userid' )->where( 'a.pid=' . $cid . ' AND a.status=1' );
