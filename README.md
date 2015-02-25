@@ -26,5 +26,6 @@ Tại khu vực muốn comment thêm đoạn sau
 	$url_info = parse_url( $client_info['selfurl'] );
 	$url_comment = $url_info['path'];
 	
-	$content_comment = nv_comment_module( $module_name, $url_comment, $checkss, $area, NV_COMM_ID, $allowed, 1 );// hàm này trả về nội dung html vậy nên chỉ cần truyền 1 biến vào function của theme và gán Assign tempalte như 1 biến là được. Lưu ý là loại bỏ đoạn Iframre trước đó của comment
+	$content_comment = nv_comment_module( $module_name, $url_comment, $checkss, $area, NV_COMM_ID, $allowed, 1 );
+	// hàm này trả về nội dung html vậy nên chỉ cần truyền 1 biến vào function của theme và gán Assign tempalte như 1 biến là được. Lưu ý là loại bỏ đoạn Iframre trước đó của comment
 ```
