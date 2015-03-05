@@ -6,11 +6,18 @@
  * @Createdate Mon, 27 Jan 2014 00:08:04 GMT
  */
 
-function sendcommment(module, url_comment, area, id, allowed, newscheckss, gfx_count) {
+function sendcommment(module, editor, id_content, url_comment, area, id, allowed, newscheckss, gfx_count) {
 	var commentname = document.getElementById('commentname');
 	var commentemail = document.getElementById('commentemail_iavim');
 	var code = $("#commentseccode_iavim").val();
-	var commentcontent = strip_tags(document.getElementById('commentcontent').value);
+	if( editor == 1)
+	{
+		var commentcontent = CKEDITOR.instances[id_content].getData();
+	}
+	else
+	{
+		var commentcontent = strip_tags($('textarea[name=commentcontent]').val());
+	}
 	if (commentname.value == "") {
 		alert(nv_fullname);
 		commentname.focus();
@@ -23,7 +30,6 @@ function sendcommment(module, url_comment, area, id, allowed, newscheckss, gfx_c
 		$("#commentseccode_iavim").focus();
 	} else if (commentcontent == '') {
 		alert(nv_content);
-		document.getElementById('commentcontent').focus();
 	} else {
 		var sd = document.getElementById('buttoncontent');
 		sd.disabled = true;

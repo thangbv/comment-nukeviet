@@ -214,13 +214,14 @@ function nv_comment_module( $module, $url_comment, $checkss, $area, $id, $allowe
  */
 function nv_theme_comment_module( $module, $url_comment, $area, $id, $allowed_comm, $checkss, $comment, $sortcomm, $base_url, $form_login )
 {
-	global $global_config, $module_file, $module_config, $module_info, $admin_info, $user_info, $lang_global, $client_info, $lang_module_comment;
+	global $global_config, $module_file, $module_config, $module_info, $admin_info, $user_info, $lang_global, $client_info, $lang_module_comment, $module_name;
 
 	$xtpl = new XTemplate( 'main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/comment' );
 	$xtpl->assign( 'LANG', $lang_module_comment );
 	$xtpl->assign( 'TEMPLATE', $global_config['module_theme'] );
 	$xtpl->assign( 'CHECKSS_COMM', $checkss );
 	$xtpl->assign( 'MODULE_COMM', $module );
+	$xtpl->assign( 'module_name', $module_name );
 	$xtpl->assign( 'AREA_COMM', $area );
 	$xtpl->assign( 'ID_COMM', $id );
 	$xtpl->assign( 'ALLOWED_COMM', $allowed_comm );
@@ -280,7 +281,29 @@ function nv_theme_comment_module( $module, $url_comment, $area, $id, $allowed_co
 				}
 			}
 		}
-
+		//neu nguoi dang nhap la admin se co trinh editor de binh luan
+		$xtpl->assign( 'editor', 0 );
+		if( defined( 'NV_IS_ADMIN' ) )
+		{
+			if( defined( 'NV_EDITOR' ) )
+			{
+				require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
+			}
+			if( defined( 'NV_EDITOR' ) and nv_function_exists( 'nv_aleditor' ) )
+			{
+				$xtpl->assign( 'editor', 1 );
+				$comment_content = nv_aleditor( 'commentcontent', '100%', '100px', '', '' );
+			}
+			else
+			{
+				$comment_content = "<textarea class=\"form-control\" style=\"width: 100%\" name=\"commentcontent\" id=\"commentcontent\" cols=\"20\" rows=\"5\"></textarea>";
+			}
+		}
+		else{
+			$comment_content = "<textarea class=\"form-control\" style=\"width: 100%\" name=\"commentcontent\" id=\"commentcontent\" cols=\"20\" rows=\"5\"></textarea>";
+		}
+		$xtpl->assign( 'comment_content', $comment_content );
+		
 		if( $show_captcha )
 		{
 			$xtpl->assign( 'N_CAPTCHA', $lang_global['securitycode'] );

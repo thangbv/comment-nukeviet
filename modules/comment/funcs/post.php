@@ -35,7 +35,15 @@ if( ! empty( $module ) and isset( $module_config[$module]['activecomm'] ) and is
 
 		if( nv_user_in_groups( $allowed ) )
 		{
-			$content = $nv_Request->get_title( 'content', 'post', '', 1 );
+			if( defined( 'NV_IS_ADMIN' ) )
+			{
+				$content = $nv_Request->get_editor( 'content', '', NV_ALLOWED_HTML_TAGS );
+			}
+			else
+			{
+				$content = $nv_Request->get_title( 'content', 'post', '', 1 );
+				$content = nv_nl2br( $content, '<br />' );
+			}
 			$code = $nv_Request->get_title( 'code', 'post', '' );
 			$status = $module_config[$module]['auto_postcomm'];
 
@@ -90,7 +98,6 @@ if( ! empty( $module ) and isset( $module_config[$module]['activecomm'] ) and is
 			}
 			elseif( $timeout == 0 or NV_CURRENTTIME - $timeout > $difftimeout )
 			{
-				$content = nv_nl2br( $content, '<br />' );
 				$pid = $nv_Request->get_int( 'pid', 'post', 0 );
 
 				try
